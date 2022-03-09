@@ -6,18 +6,23 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
 import {NAVIGATION} from '../constants/navigation';
 import useOrientation from '../hooks/useOrientation';
 import {AuthContext} from '../navigation/AuthProvider';
-import {DATA} from '../../assets/data/DummyData';
+// import {DATA} from '../../assets/data/DummyData';
 
 const Homescreen = ({navigation}) => {
   const {fatchingData, data} = useContext(AuthContext);
-  const [numCols, setNumCols] = useState(2);
 
+  // using hook for check screen is portrait or landscape
   const orientation = useOrientation();
   const screen = orientation.isPortrait;
+
+  // screen wise data render card
+  const numCols = screen ? 2 : 3;
+  const WIDTH = Dimensions.get('window').width;
 
   const menImage = 'https://cdn-icons-png.flaticon.com/512/236/236831.png';
   const womanImage =
@@ -29,22 +34,29 @@ const Homescreen = ({navigation}) => {
 
   const renderItem = item => {
     return (
-      <View style={styles.childContainer}>
+      <View style={{flex: 1}}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate(NAVIGATION.DETAIL);
+            navigation.navigate(NAVIGATION.DETAIL, {
+              patientFirstName: item.firstName,
+              patientLastName: item.lastName,
+              patientID: item.patientId,
+              MACAddress: item.MACAddress,
+            });
           }}>
-          <View style={{marginTop: 10}}>
-            <Image
-              source={{uri: item?.gender === 'male' ? menImage : womanImage}}
-              style={styles.imageSet}
-            />
-          </View>
+          <View style={[styles.childContainer]}>
+            <View style={{marginTop: 10}}>
+              <Image
+                source={{uri: item?.gender === 'male' ? menImage : womanImage}}
+                style={styles.imageSet}
+              />
+            </View>
 
-          <View style={styles.textView}>
-            <Text style={styles.textStyle}>
-              {item.firstName} {item.lastName}
-            </Text>
+            <View style={styles.textView}>
+              <Text style={styles.textStyle}>
+                {item.firstName} {item.lastName}
+              </Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>
@@ -57,8 +69,8 @@ const Homescreen = ({navigation}) => {
         key={numCols}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-        numColumns={3}
-        data={DATA}
+        numColumns={numCols}
+        data={data}
         keyExtractor={item => item.id}
         renderItem={({item}) => renderItem(item)}
       />

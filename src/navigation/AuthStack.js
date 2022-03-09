@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Homescreen from '../screens/Homescreen';
 import Detailscreen from '../screens/Detailscreen';
 import {NAVIGATION} from '../constants/navigation';
+import BodyDetailScreen from '../screens/BodyDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,19 @@ const AuthStack = () => {
           },
         }}
       />
-      <Stack.Screen name={NAVIGATION.DETAIL} component={Detailscreen} />
+      <Stack.Screen
+        name={NAVIGATION.DETAIL}
+        component={Detailscreen}
+        options={({route}) => ({
+          title:
+            route.params.patientFirstName + ' ' + route.params.patientLastName,
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#233975',
+          },
+        })}
+      />
+      <Stack.Screen name={NAVIGATION.BODYDETAIL} component={BodyDetailScreen} />
     </Stack.Navigator>
   );
 };

@@ -48,14 +48,4 @@ export const DATA = [
     gender: 'male',
     id: '60dea7ceb6486732c4787fd9',
   },
-  {
-    firstName: 'Umang',
-    lastName: 'Suthar',
-    gender: 'male',
-    dob: '11/03/1997',
-    patientId: 'HC-003',
-    MACAddress: 'E0:E2:E6:4C:16:38',
-    createdDate: 1624991400000,
-    id: '60dbffd8b2288ba37c32545b',
-  },
 ];
