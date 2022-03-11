@@ -35,7 +35,17 @@ const AuthStack = () => {
           },
         })}
       />
-      <Stack.Screen name={NAVIGATION.BODYDETAIL} component={BodyDetailScreen} />
+      <Stack.Screen
+        name={NAVIGATION.BODYDETAIL}
+        component={BodyDetailScreen}
+        options={({route}) => ({
+          title: route.params.titles,
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#233975',
+          },
+        })}
+      />
     </Stack.Navigator>
   );
 };
