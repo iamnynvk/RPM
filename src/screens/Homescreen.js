@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  AppState,
   Dimensions,
 } from 'react-native';
 import {NAVIGATION} from '../constants/navigation';
